@@ -114,3 +114,31 @@ Clean + readable API"""
 • -> None for functions that don’t return anything
 • Annotations are hints — Python won’t crash if you pass the wrong type
 • Use Optional[type] when a value could be None"""
+
+"""Combining Error Handling with Classes"""
+class BankAccount:
+    def __init__(self, owner: str, balance: float = 0) -> None:
+        self.owner = owner
+        self._balance = balance
+        self._transactions = []
+
+    @property
+    def balance(self) -> float:
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        if amount <= 0:
+            raise ValueError("Deposit must be positive!")
+        self._balance += amount
+        self._transactions.append(f"+${amount:.2f}")
+
+    def withdraw(self, amount: float) -> None:
+        if amount <= 0:
+            raise ValueError("Withdrawal must be positive!")
+        if amount > self._balance:
+            raise ValueError("Insufficient funds!")
+        self._balance -= amount
+        self._transactions.append(f"-${amount:.2f}")
+
+    def __str__(self) -> str:
+        return f"Account({self.owner}, Balance: ${self._balance:.2f})"
