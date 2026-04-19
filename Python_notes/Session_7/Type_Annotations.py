@@ -52,3 +52,65 @@ def get_greeting(name: str, excited: bool = False) -> str:
     if excited:
         return f"Hello, {name}!!!"
     return f"Hello, {name}."
+
+#Type Annotations in Classes
+class Student:
+    def __init__(self, name: str, age: int) -> None:
+        self.name: str = name
+        self.age: int = age
+        self.grades: list[float] = []
+
+    def add_grade(self, grade: float) -> None:
+        if not (0 <= grade <= 100):
+            raise ValueError("Grade must be 0-100!")
+        self.grades.append(grade)
+
+    def get_average(self) -> float:
+        if not self.grades:
+            return 0.0
+        return sum(self.grades) / len(self.grades)
+
+    @property
+    def letter_grade(self) -> str:
+        avg = self.get_average()
+        if avg >= 90:
+            return "A"
+        elif avg >= 80:
+            return "B"
+        elif avg >= 70:
+            return "C"
+        elif avg >= 60:
+            return "D"
+        else:
+            return "F"
+
+    def __str__(self) -> str:
+        return f"Student ({self.name}, Age {self.age})"
+    
+"""1. Typed constructor
+def __init__(self, name: str, age: int) -> None:
+Means:
+name must be string
+age must be int
+returns nothing (None)"""
+
+"""2. Typed attributes
+self.grades: list[float] = []
+Means:
+this list only stores floats"""
+
+"""3. Method return types
+def get_average(self) -> float:
+Means:
+returns a float number"""
+
+"""4. Property typing
+def letter_grade(self) -> str:
+Clean + readable API"""
+
+"""Remember
+• : type after parameters — def greet(name: str)
+• -> type for return values — def greet(name: str) -> str:
+• -> None for functions that don’t return anything
+• Annotations are hints — Python won’t crash if you pass the wrong type
+• Use Optional[type] when a value could be None"""
