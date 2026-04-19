@@ -6,6 +6,9 @@ Example:
 • One class can create MANY objects!"""
 
 # Creating a simple class
+import __main__
+
+
 class Student:
     def __init__(self, name, age):
         # Constructor runs when object is created
@@ -67,3 +70,39 @@ student1.add_grade(78)
 print("Name:", student1.name)
 print("Average:", student1.get_average())
 print("Grade:", student1.get_letter_grade())
+
+#__str__method 
+"""__str__ is a special method (dunder method) in Python
+
+It controls what happens when you do:
+print(object)"""
+
+#Without __str__
+#__main__.Student object at 0x123456
+
+#With __str__
+#Student (Alice, Age 20, Avg: 85.0)
+
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.grades = []
+
+    def get_average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+
+    def __str__(self):
+        """Controls what print(object) shows"""
+        avg = self.get_average()
+        return f"Student ({self.name}, Age {self.age}, Avg: {avg:.1f})"
+
+
+# Create object
+alice = Student("Alice", 20)
+alice.grades = [85, 92, 78]
+
+# Print object
+print(alice)
