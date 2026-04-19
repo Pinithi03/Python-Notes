@@ -142,3 +142,50 @@ class BankAccount:
 
     def __str__(self) -> str:
         return f"Account({self.owner}, Balance: ${self._balance:.2f})"
+    
+    """Common mistakes and Solutions"""
+#1. Catching too broadly
+#BAD:
+try:
+    complex_code()
+except:
+    pass   # Silent failure (dangerous)
+
+#GOOD:
+try:
+    complex_code()
+except ValueError:
+    print("Invalid value!")
+except FileNotFoundError:
+    print("File not found!")
+    
+#2. Forgetting Self
+#Bad
+class Dog:
+    def bark():
+        print("Woof")
+        
+#Good
+class Dog:
+    def bark(self):
+        print("Woof")
+        
+#3.Forgetting self. for attributes
+#Bad
+class Student:
+    def __init__(self, name):
+        name = name   # ❌ only local variable
+        
+#Good
+class Student:
+    def __init__(self, name):
+        self.name = name   # stored in object
+
+#4. Confusing Class vs Instance
+class Car:
+    def __init__(self, brand):
+        self.brand = brand
+my_car = Car("Toyota")
+your_car = Car("Honda")
+# Car is the class
+# my_car is an instance ( object )
