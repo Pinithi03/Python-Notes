@@ -164,3 +164,45 @@ eter from radius)
 4. Backward Compatibility: Convert a simple attribute to a property with logic — users
 keep using the same object.attribute syntax"""
 
+
+"""@property with Getter, Setter, and Deleter"""
+class Temperature:
+    def __init__(self, celsius):
+        self._celsius = celsius  # "private" internal attribute
+
+    @property
+    def celsius(self):
+        """Getter: called when you access t.celsius"""
+        return self._celsius
+
+    @celsius.setter
+    def celsius(self, value):
+        """Setter: called when you assign t.celsius = value"""
+        if value < -273.15:  # Absolute zero
+            raise ValueError("Temperature below absolute zero!")
+        self._celsius = value
+
+    @celsius.deleter
+    def celsius(self):
+        """Deleter: called when you use del t.celsius"""
+        print("Deleting value...")
+        del self._celsius
+
+
+# Usage
+t = Temperature(25)
+
+print(t.celsius)   # Getter -> 25
+
+t.celsius = 30     # Setter -> valid
+print(t.celsius)   # 30
+
+# t.celsius = -300  # raises ValueError
+
+del t.celsius      # Deleter
+
+"""• @property — defines the getter (called on read: t.celsius)
+• @name.setter — defines the setter (called on assignment: t.celsius = 30)
+• @name.deleter — defines the deleter (called on delete: del t.celsius)
+The property decorator works with “private” internal attributes named with a leading underscore
+(e.g., celsius)."""
