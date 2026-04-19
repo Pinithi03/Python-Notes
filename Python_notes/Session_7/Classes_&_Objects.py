@@ -106,3 +106,61 @@ alice.grades = [85, 92, 78]
 
 # Print object
 print(alice)
+
+"""Decorators"""
+#@property — Calculated Attributes
+#It lets you use a method like an attribute
+
+#Without @property
+#alice.get_average()
+
+#With @property
+#alice.average   # cleaner 
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = []
+
+    @property
+    def average(self):
+        """Access like an attribute (no parentheses!)"""
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+
+    @property
+    def letter_grade(self):
+        avg = self.average  # using another property
+        if avg >= 90:
+            return "A"
+        elif avg >= 80:
+            return "B"
+        elif avg >= 70:
+            return "C"
+        elif avg >= 60:
+            return "D"
+        else:
+            return "F"
+
+
+# Usage
+alice = Student("Alice")
+alice.grades = [85, 92, 78]
+
+# Use WITHOUT parentheses
+print(alice.average)       # 85.0
+print(alice.letter_grade)  # B
+
+"""@property makes methods look like attributes!
+Without: alice.get average() — looks like a function call
+With: alice.average — looks like accessing data (cleaner!)"""
+
+"""When to Use @property
+1. Data Validation: Ensure assigned values meet conditions (e.g., score must be 0–100)
+2. Computed Attributes: Value calculated dynamically from other attributes (e.g., diam-
+eter from radius)
+3. Read-Only Properties: Attributes that can be accessed but not modified
+4. Backward Compatibility: Convert a simple attribute to a property with logic — users
+keep using the same object.attribute syntax"""
+
