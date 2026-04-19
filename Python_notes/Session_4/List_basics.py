@@ -3,9 +3,6 @@ What is a List?
 A list is an ordered collection that can store multiple values."""
 
 # Creating lists
-from doctest import Example
-
-
 scores = [85 , 92 , 78 , 95 , 88]
 fruits = [ " apple " , " banana " , " cherry " ]
 mixed = [42 , " hello " , 3.14 , True ] # Can mix types !
