@@ -230,4 +230,53 @@ print(MathHelper.is_even(4))   # True
 print(MathHelper.factorial(5)) # 120
 
 
+"""Complete Example: BankAccount"""
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self._balance = balance          # "private" convention
+        self._transactions = []
 
+    @property
+    def balance(self):
+        return self._balance
+
+    @property
+    def status(self):
+        if self._balance < 0:
+            return "Overdrawn"
+        elif self._balance < 100:
+            return "Low"
+        else:
+            return "Good"
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit must be positive!")
+        self._balance += amount
+        self._transactions.append(f"+ ${amount:.2f}")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Withdrawal must be positive!")
+        if amount > self._balance:
+            raise ValueError("Insufficient funds!")
+        self._balance -= amount
+        self._transactions.append(f"- ${amount:.2f}")
+
+    @staticmethod
+    def is_valid_amount(amount):
+        return isinstance(amount, (int, float)) and amount > 0
+
+    def __str__(self):
+        return f"Account ({self.owner}, ${self.balance:.2f}, {self.status})"
+
+
+# Usage
+acc = BankAccount("Alice", 500)
+
+acc.deposit(100)
+
+print(acc)            # Account (Alice, $600.00, Good)
+print(acc.balance)    # 600
+print(acc.status)     # Good
