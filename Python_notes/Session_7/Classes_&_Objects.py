@@ -206,3 +206,28 @@ del t.celsius      # Deleter
 • @name.deleter — defines the deleter (called on delete: del t.celsius)
 The property decorator works with “private” internal attributes named with a leading underscore
 (e.g., celsius)."""
+
+"""@staticmethod — Utility Functions"""
+class MathHelper:
+
+    @staticmethod
+    def is_even(number):
+        """Doesn’t need self - utility function"""
+        return number % 2 == 0
+
+    @staticmethod
+    def factorial(n):
+        if n <= 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
+
+
+# Call WITHOUT creating an instance
+print(MathHelper.is_even(4))   # True
+print(MathHelper.factorial(5)) # 120
+
+
+
